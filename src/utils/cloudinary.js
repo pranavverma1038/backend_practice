@@ -1,5 +1,5 @@
 import { v2 as cloudinary} from "cloudinary";
-import { fs } from "fs";
+import  fs  from "fs";
 
 
 
@@ -21,15 +21,11 @@ const uploadOnCloudinary = async(localFilePath)=>{
         return response;
     } catch (error) {
         fs.unlinkSync(localFilePath)// remove locally removed saved temperoray file as uplaod option got killed
+        return null;
     }
 }
 
-const uploadResult = await cloudinary.uploader
-       .upload(
-           'https://res.cloudinary.com/demo/image/upload/getting-started/shoes.jpg', {
-               public_id: 'shoes',
-           }
-       )
-       .catch((error) => {
-           console.log(error);
-       });
+
+
+
+export { uploadOnCloudinary };
