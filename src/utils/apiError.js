@@ -1,4 +1,4 @@
-class apiError extends Error{
+class ApiError extends Error{
     constructor(
         statusCode,
         message="Something went wrong",
@@ -7,17 +7,17 @@ class apiError extends Error{
     ){
         super(message)
         this.statusCode=statusCode
-        this.data=null,
+        this.data=null
         this.message=message
         this.success = false
         this.errors = errors
 
         if(stack){
-            thhis.stack
+            this.stack
         }else{
             Error.captureStackTrace(this,this.constructor)
         }
     }
 }
 
-export {apiError}
+export {ApiError}
