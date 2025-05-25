@@ -6,8 +6,8 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 const generateAccessAndRefreshTokens = async(userId)=>{
     try {
         const user = await User.findById(userId)
-        const accessToken = User.generateAccessToken()
-        const refreshToken = User.generateRefreshToken()
+        const accessToken = user.generateAccessToken()
+        const refreshToken = user.generateRefreshToken()
 
         user.refreshToken = refreshToken
         await user.save({validateBeforeSave:false})
@@ -99,8 +99,8 @@ const registerUser = asyncHandler( async(req,res)=>{
     //access and refresh token
     //send cookie
     const {email,username,password} = req.body
-    if(!username || !password){
-        throw new ApiError(400, "username or password required")
+    if(!username && !email){
+        throw new ApiError(400, "username or email is required")
     }
 
     const user = await User.findOne({
